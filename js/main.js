@@ -5,41 +5,33 @@ Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei num
 
 const divContainer = document.querySelector(".container");
 const divScore = document.querySelector("#score");
-
 const divTimer = document.querySelector("#timer");
-// const btnPlay = document.querySelector("#play");
-// const btnReset = document.querySelector("#reset");
-// const scoreMsg = document.querySelector('#score');
+const btnPlay = document.querySelector("#play");
+const btnRePlay = document.querySelector("#replay");
+const scoreMsg = document.querySelector('#score');
 
-let timeInSeconds = 4; //tempo in secondi
 const qtaNum = 5; //quanti numeri generare
-const maxNum = 20; //numero casuale massimo, il minimo è uno di default
+const maxNum = 20; //numero casuale massimo, il minimo è 1
 
 
 
-divContainer.innerHTML = ""; //reset container
-divScore.innerHTML = ""; //reset punteggio
 
-numGenerator();
-timer();
+btnRePlay.style.display = 'none'; //nascondo il pulsante replay
+btnPlay.addEventListener('click', play);
 
 
-function hideNum(){
-    divContainer.innerHTML = "";
+function play() { //generatore casuale di numeri, arg -> int
 
-    let input;
+    let countdown = 10; //conto alla rovescia in secondi
+    divContainer.innerHTML = ''; //reset container
+    divScore.innerHTML = ''; //reset punteggio
+    btnPlay.style.display = 'none'; //nascondo il pulsante play
+    btnRePlay.style.display = 'none'; //nascondo il pulsante replay
+
+    divTimer.innerHTML = ''; //reset timer
+    divTimer.style.display = 'block';
     
-    for (let i = 0; i < qtaNum; i++) {
-        input = document.createElement('input');
-        input.type = 'number';
-        input.placeholder = 'Numero da 1 a ' + maxNum;
-        divContainer.appendChild(input);
-    }
 
-}
-
-
-function numGenerator() { //generatore casuale di numeri, arg -> int
     const arrRndmNum = [];
     let rndmNum;
     let divNumber;
@@ -54,24 +46,66 @@ function numGenerator() { //generatore casuale di numeri, arg -> int
         arrRndmNum.push(rndmNum);
     }
     
-    for (let x = 0; x < arrRndmNum.length; x++) { //stampo i numeri
+    for (let x = 0; x < arrRndmNum.length; x++) { //stampo i numeri casuali
         divNumber = document.createElement('div');
         divNumber.innerHTML = arrRndmNum[x];
         divContainer.append(divNumber);
     }
 
-    
-    
-}
 
-let timeStop = setInterval(timer, 1000); //timer con conto alla rovescia
 
-function timer(){
-    if (timeInSeconds == 0) {
-        hideNum();
-        divTimer.style.display = 'none';
-        clearInterval(timeStop);
-    } else {
-        divTimer.innerHTML = 'Timer: ' + timeInSeconds-- + ' secondi';
+    let timeInterval = setInterval(timer, 1000);
+
+    function timer(){ //timer con conto alla rovescia
+        if (countdown == 0) {
+            divContainer.innerHTML = '';
+            divTimer.style.display = 'none';
+            checkNumbers();
+            clearInterval(timeInterval);
+        } else {
+            if (countdown == 1) { //distinguo singolare/plurale della parola "secondi"
+                divTimer.innerHTML = 'Timer: ' + countdown-- + ' secondo';
+            } else {
+                divTimer.innerHTML = 'Timer: ' + countdown-- + ' secondi';
+            }
+        }
+    }
+
+  
+
+    function checkNumbers() { //controllo i numeri  
+        let askNum;
+        let arrChecked = [];
+
+        setTimeout(() => {
+            for (let i = 0; i < qtaNum; i++) {
+            askNum = parseInt(prompt('Inserisci un numero'));
+            if (!arrRndmNum.includes(askNum)) {
+            } else {
+                while (!arrChecked.includes(askNum)) { //controllo di inserimento singolo
+                    arrChecked.push(askNum);
+                }
+            }
+        }
+        scoreMsg.innerHTML = `<p>Hai individuato ${arrChecked.length} numeri:  ${arrChecked}</p><p>La sequenza completa è ${arrRndmNum}</p>`;
+
+        btnRePlay.style.display = 'block'; //abilito il pulsante replay
+        btnRePlay.addEventListener('click', play);
+        }, 1);
+
+        
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
