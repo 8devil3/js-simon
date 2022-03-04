@@ -85,7 +85,15 @@ function play() { //generatore casuale di numeri, arg -> int
                 }
             }
         }
-        scoreMsg.innerHTML = `<p>Hai individuato ${arrChecked.length} numeri:  ${arrChecked}</p><p>La sequenza completa è ${arrRndmNum}</p>`;
+
+        let numPlural;
+        if (arrChecked.length == 1) {
+            numPlural = 'numero';
+        } else {
+            numPlural = 'numeri';
+        }
+
+        scoreMsg.innerHTML = `<p>Hai individuato ${arrChecked.length} ${numPlural}:  ${arrChecked}</p><p>La sequenza completa è ${arrRndmNum}</p>`;
 
         btnPlay.style.display = 'block'; //abilito il pulsante replay
         btnPlay.addEventListener('click', play);
