@@ -16,7 +16,6 @@ const maxNum = 20; //numero casuale massimo, il minimo è 1
 
 
 
-btnRePlay.style.display = 'none'; //nascondo il pulsante replay
 btnPlay.addEventListener('click', play);
 
 
@@ -26,7 +25,6 @@ function play() { //generatore casuale di numeri, arg -> int
     divContainer.innerHTML = ''; //reset container
     divScore.innerHTML = ''; //reset punteggio
     btnPlay.style.display = 'none'; //nascondo il pulsante play
-    btnRePlay.style.display = 'none'; //nascondo il pulsante replay
 
     divTimer.innerHTML = ''; //reset timer
     divTimer.style.display = 'block';
@@ -89,8 +87,8 @@ function play() { //generatore casuale di numeri, arg -> int
         }
         scoreMsg.innerHTML = `<p>Hai individuato ${arrChecked.length} numeri:  ${arrChecked}</p><p>La sequenza completa è ${arrRndmNum}</p>`;
 
-        btnRePlay.style.display = 'block'; //abilito il pulsante replay
-        btnRePlay.addEventListener('click', play);
+        btnPlay.style.display = 'block'; //abilito il pulsante replay
+        btnPlay.addEventListener('click', play);
         }, 1);
 
         
