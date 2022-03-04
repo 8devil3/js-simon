@@ -4,3 +4,24 @@ Dopo aver nascosto i numeri chiedete all'utente (con dei prompt) di inserirli in
 Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei numeri da indovinare sono stati individuati. */
 
 
+const qtaNum = 5;
+const maxNum = 20;
+
+
+function numGenerator() { //generatore casuale di numeri, arg -> int
+    const arrRndmNum = [];
+    let rndmNum;
+
+    for (let i = 0; i < qtaNum; i++) {
+        rndmNum = Math.floor(Math.random() * maxNum) + 1;
+        
+        while (arrRndmNum.includes(rndmNum)) { //numeri univoci
+            rndmNum = Math.floor(Math.random() * maxNum) + 1;
+        }
+
+        arrRndmNum.push(rndmNum);
+    }
+    
+    // console.log(arrRndmNum);
+    return arrRndmNum;
+}
