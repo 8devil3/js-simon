@@ -39,9 +39,12 @@ function play() {
         divContainer.append(divNumber);
     }
 
-    
-    //timer con conto alla rovescia
-    let timeInterval = setInterval(() => {
+    //richiamo il timer PRIMA del setInterval per iniziare immediatamente il conto alla rovescia, senza aspettare il "delay" del setInterval (in questo caso di 1000ms)
+    timer();
+    let timeInterval = setInterval(timer, 1000);
+
+    //timer con conto alla rovescia   
+    function timer() {
         if (timerCountdown == 0) {
             divContainer.innerHTML = "";
             divTimer.style.display = "none";
@@ -51,7 +54,9 @@ function play() {
             //stampo il timer
             divTimer.innerHTML = "Timer: " + timerCountdown-- + " second" + pluralsM(timerCountdown + 1);
         }
-    }, 1000);
+
+    }
+    
 }
 
 
