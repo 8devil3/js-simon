@@ -86,7 +86,6 @@ function checkNumbers(arrRndmNum) {
         
         //abilito il pulsante per il replay
         btnPlay.style.display = "block";
-        btnPlay.addEventListener("click", play);
     }, 1);
 }
 
