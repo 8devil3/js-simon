@@ -76,7 +76,11 @@ function play() {
             }
 
             //stampo il risultato
-            scoreMsg.innerHTML = `<p>Hai individuato ${arrChecked.length} numer${plurals(arrChecked.length)}, ${arrChecked}</p><p>La sequenza completa è ${arrRndmNum}</p>`;
+            if (arrChecked.length != 0) {
+                scoreMsg.innerHTML = `<p>Hai individuato ${arrChecked.length} numer${plurals(arrChecked.length)}: ${arrChecked}</p><p>La sequenza completa è ${arrRndmNum}</p>`;
+            } else {
+                scoreMsg.innerHTML = `<p>Non hai individuato alcun numero.</p><p>La sequenza completa è ${arrRndmNum}</p>`;
+            }
             
             //abilito il pulsante per il replay
             btnPlay.style.display = "block";
