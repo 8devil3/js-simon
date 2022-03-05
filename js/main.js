@@ -13,13 +13,14 @@ const scoreMsg = document.querySelector("#score");
 
 const qtaNum = 5; //quanti numeri generare
 const maxNum = 20; //numero casuale massimo, il minimo è 1
+const countdown = 5; //conto alla rovescia in secondi
 
 
 
 btnPlay.addEventListener("click", play);
 
 function play() {
-    let countdown = 2; //conto alla rovescia in secondi
+    let timerCountdown = countdown;
 
     divContainer.innerHTML = ""; //reset container
     divScore.innerHTML = ""; //reset punteggio
@@ -44,8 +45,8 @@ function play() {
         arrRndmNum.push(rndmNum);
     }
 
+    //stampo i numeri casuali
     for (let x = 0; x < arrRndmNum.length; x++) {
-        //stampo i numeri casuali
         divNumber = document.createElement("div");
         divNumber.innerHTML = arrRndmNum[x];
         divContainer.append(divNumber);
@@ -56,17 +57,17 @@ function play() {
 
     //timer con conto alla rovescia
     function timer() {
-        if (countdown == 0) {
+        if (timerCountdown == 0) {
             divContainer.innerHTML = "";
             divTimer.style.display = "none";
             checkNumbers();
             clearInterval(timeInterval);
         } else {
             //gestisco i plurali
-            if (countdown == 1) {
-                divTimer.innerHTML = "Timer: " + countdown-- + " secondo";
+            if (timerCountdown == 1) {
+                divTimer.innerHTML = "Timer: " + timerCountdown-- + " secondo";
             } else {
-                divTimer.innerHTML = "Timer: " + countdown-- + " secondi";
+                divTimer.innerHTML = "Timer: " + timerCountdown-- + " secondi";
             }
         }
     }
