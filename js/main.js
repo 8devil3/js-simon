@@ -50,12 +50,8 @@ function play() {
             checkNumbers();
             clearInterval(timeInterval);
         } else {
-            //gestisco i plurali
-            if (timerCountdown == 1) {
-                divTimer.innerHTML = "Timer: " + timerCountdown-- + " second" + plurals(timerCountdown);
-            } else {
-                divTimer.innerHTML = "Timer: " + timerCountdown-- + " second" + plurals(timerCountdown);
-            }
+            //stampo il timer
+            divTimer.innerHTML = "Timer: " + timerCountdown-- + " second" + plurals(timerCountdown + 1);
         }
     }
 
@@ -116,8 +112,6 @@ function genRandomNumbers(){
 function plurals(qta) {
     if (qta == 1) {
         return "o";
-    } else if (qta == 0) {
-        return "i";
     } else {
         return "i";
     }
