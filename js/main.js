@@ -29,23 +29,10 @@ function play() {
     divTimer.innerHTML = ""; //reset timer
     divTimer.style.display = "block";
 
-    const arrRndmNum = [];
-    let rndmNum;
-    let divNumber;
-
-    //generatore casuale di numeri
-    for (let i = 0; i < qtaNum; i++) {
-        rndmNum = Math.floor(Math.random() * maxNum) + 1;
-
-        //numeri univoci
-        while (arrRndmNum.includes(rndmNum)) {
-            rndmNum = Math.floor(Math.random() * maxNum) + 1;
-        }
-
-        arrRndmNum.push(rndmNum);
-    }
-
+    const arrRndmNum = genRandomNumbers(); //richiamo il generatore casuale di numeri e memorizzo il risultato in una variabile
+    
     //stampo i numeri casuali
+    let divNumber;
     for (let x = 0; x < arrRndmNum.length; x++) {
         divNumber = document.createElement("div");
         divNumber.innerHTML = arrRndmNum[x];
@@ -65,19 +52,19 @@ function play() {
         } else {
             //gestisco i plurali
             if (timerCountdown == 1) {
-                divTimer.innerHTML = "Timer: " + timerCountdown-- + " secondo";
+                divTimer.innerHTML = "Timer: " + timerCountdown-- + " second" + plurals(timerCountdown);
             } else {
-                divTimer.innerHTML = "Timer: " + timerCountdown-- + " secondi";
+                divTimer.innerHTML = "Timer: " + timerCountdown-- + " second" + plurals(timerCountdown);
             }
         }
     }
-    
+
 
     //controllo i numeri
     function checkNumbers() {
         let askNum;
         let arrChecked = [];
-
+    
         //imposto il timeout per aggirare il blocco esecuzione dei prompt
         setTimeout(() => {
             for (let i = 0; i < qtaNum; i++) {
@@ -92,26 +79,46 @@ function play() {
                 }
             }
 
-            //gestisco i plurali e la punteggiatura
-            let numPlural;
-            let colon;
-            if (arrChecked.length == 1) {
-                numPlural = "numero";
-                colon = ':';
-            } else if (arrChecked.length == 0) {
-                numPlural = "numeri";
-                colon = '.';
-            } else {
-                numPlural = "numeri";
-                colon = ':';
-            }
-    
             //stampo il risultato
-            scoreMsg.innerHTML = `<p>Hai individuato ${arrChecked.length} ${numPlural}${colon}  ${arrChecked}</p><p>La sequenza completa è ${arrRndmNum}</p>`;
+            scoreMsg.innerHTML = `<p>Hai individuato ${arrChecked.length} numer${plurals(arrChecked.length)}, ${arrChecked}</p><p>La sequenza completa è ${arrRndmNum}</p>`;
             
             //abilito il pulsante per il replay
             btnPlay.style.display = "block";
             btnPlay.addEventListener("click", play);
         }, 1);
+    }
+}
+
+
+
+//generatore casuale di numeri
+function genRandomNumbers(){
+    const arrRndmNum = [];
+    let rndmNum;
+
+    for (let i = 0; i < qtaNum; i++) {
+        rndmNum = Math.floor(Math.random() * maxNum) + 1;
+        
+        //numeri univoci
+        while (arrRndmNum.includes(rndmNum)) {
+            rndmNum = Math.floor(Math.random() * maxNum) + 1;
+        }
+
+        arrRndmNum.push(rndmNum);
+    }
+
+    return arrRndmNum;
+}
+
+
+
+//gestisco i plurali
+function plurals(qta) {
+    if (qta == 1) {
+        return "o";
+    } else if (qta == 0) {
+        return "i";
+    } else {
+        return "i";
     }
 }
