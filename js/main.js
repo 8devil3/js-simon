@@ -39,54 +39,55 @@ function play() {
         divContainer.append(divNumber);
     }
 
-
-    let timeInterval = setInterval(timer, 1000);
-
+    
     //timer con conto alla rovescia
-    function timer() {
+    let timeInterval = setInterval(() => {
         if (timerCountdown == 0) {
             divContainer.innerHTML = "";
             divTimer.style.display = "none";
-            checkNumbers();
+            checkNumbers(arrRndmNum);
             clearInterval(timeInterval);
         } else {
             //stampo il timer
-            divTimer.innerHTML = "Timer: " + timerCountdown-- + " second" + plurals(timerCountdown + 1);
+            divTimer.innerHTML = "Timer: " + timerCountdown-- + " second" + pluralsM(timerCountdown + 1);
         }
-    }
+    }, 1000);
+}
 
 
-    //controllo i numeri
-    function checkNumbers() {
-        let askNum;
-        let arrChecked = [];
-    
-        //imposto il timeout per aggirare il blocco esecuzione dei prompt
-        setTimeout(() => {
-            for (let i = 0; i < qtaNum; i++) {
-                askNum = parseInt(prompt("Inserisci un numero"));
-                if (askNum != arrRndmNum[i]) {
-                    //niente
-                } else {
-                    //controllo di inserimento singolo
-                    while (!arrChecked.includes(askNum)) {
-                        arrChecked.push(askNum);
-                    }
+
+//controllo dei numeri
+function checkNumbers(arrRndmNum) {
+    let askNum;
+    let arrChecked = [];
+
+    //imposto il timeout per aggirare il blocco esecuzione dei prompt
+    setTimeout(() => {
+        for (let i = 0; i < qtaNum; i++) {
+            askNum = parseInt(prompt("Inserisci un numero"));
+            if (askNum != arrRndmNum[i]) {
+                //niente
+            } else {
+                //controllo di inserimento singolo
+                while (!arrChecked.includes(askNum)) {
+                    arrChecked.push(askNum);
                 }
             }
+        }
 
-            //stampo il risultato
-            if (arrChecked.length != 0) {
-                scoreMsg.innerHTML = `<p>Hai individuato ${arrChecked.length} numer${plurals(arrChecked.length)}: ${arrChecked}</p><p>La sequenza completa è ${arrRndmNum}</p>`;
-            } else {
-                scoreMsg.innerHTML = `<p>Non hai individuato alcun numero.</p><p>La sequenza completa è ${arrRndmNum}</p>`;
-            }
-            
-            //abilito il pulsante per il replay
-            btnPlay.style.display = "block";
-            btnPlay.addEventListener("click", play);
-        }, 1);
-    }
+        //stampo il risultato
+        if (arrChecked.length == arrRndmNum.length) {
+        scoreMsg.innerHTML = `<p class="win">Complimenti!</p><p>Hai individuato tutti i numeri!</p><p>La sequenza completa è ${arrRndmNum}</p>`;
+        } else if (arrChecked.length < qtaNum && arrChecked.length > 0) {
+            scoreMsg.innerHTML = `<p>Hai individuato ${arrChecked.length} numer${pluralsM(arrChecked.length)}: ${arrChecked}</p><p>La sequenza completa è ${arrRndmNum}</p>`;
+        } else {
+            scoreMsg.innerHTML = `<p>Non hai individuato alcun numero.</p><p>La sequenza completa è ${arrRndmNum}</p>`;
+        }
+        
+        //abilito il pulsante per il replay
+        btnPlay.style.display = "block";
+        btnPlay.addEventListener("click", play);
+    }, 1);
 }
 
 
@@ -113,7 +114,7 @@ function genRandomNumbers(){
 
 
 //gestisco i plurali maschili
-function plurals(qta) {
+function pluralsM(qta) {
     if (qta == 1) {
         return "o";
     } else {
@@ -122,7 +123,7 @@ function plurals(qta) {
 }
 
 //gestisco i plurali femminili
-function plurals(qta) {
+function pluralsF(qta) {
     if (qta == 1) {
         return "a";
     } else {

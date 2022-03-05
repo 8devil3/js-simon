@@ -66,3 +66,8 @@ p {
     text-align: center;
     min-height: 1.2rem;
 }
+
+.win {
+    color: #47a847;
+    font-weight: 700;
+}
