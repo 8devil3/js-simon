@@ -112,11 +112,20 @@ function genRandomNumbers(){
 
 
 
-//gestisco i plurali
+//gestisco i plurali maschili
 function plurals(qta) {
     if (qta == 1) {
         return "o";
     } else {
         return "i";
+    }
+}
+
+//gestisco i plurali femminili
+function plurals(qta) {
+    if (qta == 1) {
+        return "a";
+    } else {
+        return "e";
     }
 }
