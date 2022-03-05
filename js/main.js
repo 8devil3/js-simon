@@ -33,7 +33,7 @@ function play() {
     let rndmNum;
     let divNumber;
 
-    //generatore casuale di numeri, arg -> int
+    //generatore casuale di numeri
     for (let i = 0; i < qtaNum; i++) {
         rndmNum = Math.floor(Math.random() * maxNum) + 1;
 
@@ -92,16 +92,22 @@ function play() {
                 }
             }
 
-            //gestisco i plurali
+            //gestisco i plurali e la punteggiatura
             let numPlural;
+            let colon;
             if (arrChecked.length == 1) {
                 numPlural = "numero";
+                colon = ':';
+            } else if (arrChecked.length == 0) {
+                numPlural = "numeri";
+                colon = '.';
             } else {
                 numPlural = "numeri";
+                colon = ':';
             }
     
             //stampo il risultato
-            scoreMsg.innerHTML = `<p>Hai individuato ${arrChecked.length} ${numPlural}:  ${arrChecked}</p><p>La sequenza completa è ${arrRndmNum}</p>`;
+            scoreMsg.innerHTML = `<p>Hai individuato ${arrChecked.length} ${numPlural}${colon}  ${arrChecked}</p><p>La sequenza completa è ${arrRndmNum}</p>`;
             
             //abilito il pulsante per il replay
             btnPlay.style.display = "block";
